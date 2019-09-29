@@ -12,11 +12,11 @@ review the different aspects of machine learning and their possible applications
 investigation we highlighted **Reinforcement Learning (RL)** as an especially promising area to research and proposed 
 the development of a Reinforcement Learning framework to better understand its possible applications.  
 
-Please see the 1st term [report](docs/fine_6900_w19_daniel_fudge_final.pdf) for the detailed discussion.  
+Please see the 1st term [report](docs/report1.pdf) for the detailed discussion.  
 
 #### Term 2 - Architectural Design (Fall 2019)
 ##### Udacity Deep Reinforcement Learning Nanodegree
-The [1st term report](docs/fine_6900_w19_daniel_fudge_final.pdf) identified the Udacity "Deep Reinforcement Learning" 
+The [1st term report](docs/report1.pdf) identified the Udacity "Deep Reinforcement Learning" 
 Nanodegree as a first step toward gaining a better understanding of this topic.  Both the [syllabus](docs/DRL_Nanodegree_Syllabus.pdf)
 or the [site](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893) provides a detailed 
 description of the Nanodegree.  
