@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f1b62e2-14b6-4840-b8fe-718e3a431e1a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/report2.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/docs/report2.pdf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +51,7 @@
       <workItem from="1569773966054" duration="8120000" />
       <workItem from="1570829940171" duration="612000" />
       <workItem from="1571524975722" duration="21000" />
-      <workItem from="1572135665055" duration="1463000" />
+      <workItem from="1572135665055" duration="2717000" />
     </task>
     <task id="LOCAL-00001" summary="Add Winter 2019 report to docs&#10;&#10;Addresses issue #1">
       <created>1569774068757</created>
@@ -80,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572136887070</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Merged online changed to the README file.">
+      <created>1572137153953</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1572137153953</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +112,7 @@
     <MESSAGE value="Updated README to describe project and reference 1st term report&#10;&#10;Addresses issue #2" />
     <MESSAGE value="Renamed 1st term report to shorten link" />
     <MESSAGE value="Updated README and added draft of 2nd term report." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README and added draft of 2nd term report." />
+    <MESSAGE value="Merged online changed to the README file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged online changed to the README file." />
   </component>
 </project>
