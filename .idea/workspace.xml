@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f1b62e2-14b6-4840-b8fe-718e3a431e1a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/report2.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/fine_6900_w19_daniel_fudge_final.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/docs/report1.pdf" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +49,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569773961572</updated>
-      <workItem from="1569773966054" duration="7493000" />
+      <workItem from="1569773966054" duration="8120000" />
+      <workItem from="1570829940171" duration="612000" />
+      <workItem from="1571524975722" duration="21000" />
+      <workItem from="1572135665055" duration="1184000" />
     </task>
     <task id="LOCAL-00001" summary="Add Winter 2019 report to docs&#10;&#10;Addresses issue #1">
       <created>1569774068757</created>
@@ -65,7 +68,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569779240818</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Renamed 1st term report to shorten link">
+      <created>1569785784663</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1569785784663</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -76,7 +86,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -85,6 +97,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Winter 2019 report to docs&#10;&#10;Addresses issue #1" />
     <MESSAGE value="Updated README to describe project and reference 1st term report&#10;&#10;Addresses issue #2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README to describe project and reference 1st term report&#10;&#10;Addresses issue #2" />
+    <MESSAGE value="Renamed 1st term report to shorten link" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed 1st term report to shorten link" />
   </component>
 </project>
