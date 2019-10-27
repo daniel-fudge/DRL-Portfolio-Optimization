@@ -2,7 +2,7 @@
 A portfolio optimization framework leveraging Deep Reinforcement Learning (DRL)
 
 ## Motivation
-This repo was created during an Independent Study with [Professor Yelena Larkin](https://www.linkedin.com/in/yelena-larkin-6b7b361b/) 
+This repo was created during an Independent Study of [Daniel Fudge](https://www.linkedin.com/in/daniel-fudge) with [Professor Yelena Larkin](https://www.linkedin.com/in/yelena-larkin-6b7b361b/) 
 as part of a concurrent Master of Business Administration (MBA) and a [Diploma in Financial Engineering](https://schulich.yorku.ca/programs/fnen/)
 from the [Schulich School of Business](https://schulich.yorku.ca/).  The study was broken into 3 terms as described 
 below.
