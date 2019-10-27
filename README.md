@@ -28,9 +28,9 @@ The solutions to these environments can be found in the following GitHub reposit
 - [Tennis](https://github.com/daniel-fudge/reinforcement-learning-tennis)
 
 ##### Architectural Design Report
-With the Udacity Nanodegree complete and a greater understanding of DRL obtained, the 2nd term report found [here](docs/report2.pdf) 
+With the Udacity Nanodegree complete and a greater understanding of DRL obtained, the 2nd term report, found [here](docs/report2.pdf), 
 was generated to detail the proposed "_Deep Reinforcement Learning Architecture for Portfolio Optimization_".  This 
-report also described the future research required prior to the 3rd term implementation and suggest future work after 
+report also described the future research required prior to the 3rd term implementation and suggested future work after 
 the 3rd term implementation is complete.  
 
 #### Term 3 - Implementation (Winter 2020)
