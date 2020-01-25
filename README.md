@@ -52,7 +52,7 @@ Many other parts may be executed locally to avoid AWS charges but for simplicity
 project on AWS.  The cost of a simple notebook instance on SageMaker is extremely cheap and cost really only accumulate 
 when you train the model (don't forget to shut down when finished!!!).  If you are new to AWS and SageMaker, I recommend 
 the AWS SageMarker [tutorial](https://aws.amazon.com/getting-started/tutorials/build-train-deploy-machine-learning-model-sagemaker/).   
-Fir instructions on how to setup and run on AWS, please see the associated [Wiki Page]().
+For instructions on how to setup and run on AWS, please see the associated [Wiki Page]().
 
 ## Local Execution
 Although it is not recommended to train on a local PC, you may want to run locally to debug.  If so, please see the 
