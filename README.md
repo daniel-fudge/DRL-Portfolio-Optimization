@@ -42,6 +42,25 @@ techniques as highlighted in the 2nd term report.
 Term 3 will also deliver a report that summarizes not only the implementation but also the development environment to 
 lower the barrier to entry for researchers new to DRL and the deployment of cloud-based applications.   
 
+## Project Settings
+This project contains a great deal of user defined settings which are captured in the [settings file](settings.yml).
+For a complete description of this file and the included settings, please refer to the associated [wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Settings-File-Format).
+
+## AWS Execution
+It is highly recommended that training of the deep learning models be executed on AWS to leverage its GPU instances.
+Many other parts may be executed locally to avoid AWS charges but for simplicity we will conduct all stages of the 
+project on AWS.  The cost of a simple notebook instance on SageMaker is extremely cheap and cost really only accumulate 
+when you train the model (don't forget to shut down when finished!!!).  If you are new to AWS and SageMaker, I recommend 
+the AWS SageMarker [tutorial](https://aws.amazon.com/getting-started/tutorials/build-train-deploy-machine-learning-model-sagemaker/).   
+Fir instructions on how to setup and run on AWS, please see the associated [Wiki Page]().
+
+## Local Execution
+Although it is not recommended to train on a local PC, you may want to run locally to debug.  If so, please see the 
+instructions on the associated [Wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Local-PC-Execution).
+ 
+## Data Preparation
+The first and one of the most important stage of this project is data preparation.
+
 ## License
 This code is copyright under the [MIT License](LICENSE).
 
