@@ -83,7 +83,7 @@ For instructions on how to setup and run on AWS, please see the associated [Wiki
 
 ## Local Execution
 Although it is not recommended to train on a local PC, you may want to run locally to debug.  If so, please see the 
-instructions on the associated [Wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Local-PC-Execution).
+instructions on the associated [Wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Local-Execution).
  
 ## Data Preparation
 The first and one of the most important stage of this project is data preparation.
@@ -113,5 +113,5 @@ this occurred, the 2018 and 2019 data would effectively become part of the train
 ## License
 This code is copyright under the [MIT License](LICENSE).
 
-##Contributions
+## Contributions
 Please feel free to raise issues against this repo if you have any questions or suggestions for improvement.
