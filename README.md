@@ -63,6 +63,12 @@ Term 3 will also create a detailed [wiki](https://github.com/daniel-fudge/DRL-Po
 summarizes not only the implementation but also the development environment to lower the barrier to entry for 
 researchers new to DRL and the deployment of cloud-based applications.   
 
+##### Udacity Deep Learning Nanodegree
+The term 2 report identified the Udacity "Deep Learning" Nanodegree as a good way to gain a better understand of deep 
+learning networks with a special focus on [PyTorch](https://pytorch.org/), [LSTM](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+networks and [AWS SageMaker](https://aws.amazon.com/sagemaker/).  This was completed in January 2020 and laid the 
+foundation for this project.  For more information on this nanodegree, please see this [site](https://www.udacity.com/course/deep-learning-nanodegree--nd101). 
+
 ## Project Settings
 This project contains a great deal of user defined settings which are captured in the [settings file](settings.yml).
 For a complete description of this file and the included settings, please refer to the associated [wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Settings-File-Format).
