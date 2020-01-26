@@ -1,5 +1,25 @@
-# DRL-Portfolio-Optimization
+# DRL Portfolio Optimization
 A portfolio optimization framework leveraging Deep Reinforcement Learning (DRL)
+
+This document gives an overview of the project and contains many links to other resources.  Developers are directed 
+to the [Wiki](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki), which provides much more execution and
+implementation detail.  For a high level discussion of this project, please see [report 1](docs/report1.pdf) and 
+[report 2](docs/report2.pdf).  There is a number of YouTube videos that support this repo, which can be found [here](https://youtu.be/w2r8ffcBVSo).
+  
+### Table of Contents
+- [Motivation](#motivation)
+  - [Term 1 - Initial Investigation (Winter 2019)](#term-1---initial-investigation-winter-2019)
+  - [Term 2 - Architectural Design (Fall 2019)](#term-2---architectural-design-fall-2019)
+  - [Term 3 - Implementation (Winter 2020)](#term-3---implementation-winter-2020)
+- [Project Settings](#project-settings)
+- [AWS Execution](#aws-execution)
+- [Local Execution](#local-execution)
+- [Data Preparation](#data-preparation)
+- [LSTM Development](#lstm-development)
+- [DDPG Training](#ddpg-training)
+- [Results](#results)
+- [License](#license)
+- [Contributions](#contributions)
 
 ## Motivation
 This repo was created during an Independent Study of [Daniel Fudge](https://www.linkedin.com/in/daniel-fudge) with [Professor Yelena Larkin](https://www.linkedin.com/in/yelena-larkin-6b7b361b/) 
@@ -39,8 +59,9 @@ term 3 to fully implement the architecture.  Note that the intent of this implem
 state-of-the-art in DRL or its application to portfolio optimization.  Instead it is to generate a functioning DRL 
 platform for portfolio optimization.  From this conventional implementation, we can experiment with more advanced 
 techniques as highlighted in the 2nd term report.   
-Term 3 will also deliver a report that summarizes not only the implementation but also the development environment to 
-lower the barrier to entry for researchers new to DRL and the deployment of cloud-based applications.   
+Term 3 will also create a detailed [wiki](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki) report that 
+summarizes not only the implementation but also the development environment to lower the barrier to entry for 
+researchers new to DRL and the deployment of cloud-based applications.   
 
 ## Project Settings
 This project contains a great deal of user defined settings which are captured in the [settings file](settings.yml).
@@ -52,7 +73,7 @@ Many other parts may be executed locally to avoid AWS charges but for simplicity
 project on AWS.  The cost of a simple notebook instance on SageMaker is extremely cheap and cost really only accumulate 
 when you train the model (don't forget to shut down when finished!!!).  If you are new to AWS and SageMaker, I recommend 
 the AWS SageMarker [tutorial](https://aws.amazon.com/getting-started/tutorials/build-train-deploy-machine-learning-model-sagemaker/).   
-For instructions on how to setup and run on AWS, please see the associated [Wiki Page]().
+For instructions on how to setup and run on AWS, please see the associated [Wiki Page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/AWS-Execution).
 
 ## Local Execution
 Although it is not recommended to train on a local PC, you may want to run locally to debug.  If so, please see the 
@@ -61,8 +82,30 @@ instructions on the associated [Wiki page](https://github.com/daniel-fudge/DRL-P
 ## Data Preparation
 The first and one of the most important stage of this project is data preparation.
 
+## LSTM Development
+Figure 8 on page 18 of [report 2](docs/report2.pdf) copied below illustrates how the 1st layer of both the actor and 
+critic networks is a Long Short-Term Memory (LSTM) network that processes the price history into signals that are passed 
+to the Fully Connect (FC)  Feed-Forward (FF) neural networks.    
+
+![ddpg](docs/ddpg.png)
+
+Before beginning training of the full Deep Deterministic Policy Gradient (DDPG) architecture above, we will experiment 
+with different LSTM architectures, hyper-parameters and possible predictions.  For instance, predicting the stock 
+movement 1 day in the future is much easier than 1 month.  Also predicting the direction is much easier than the actual
+price.  Clearly this could be expanded to include macro economic factors and a fundamental analysis of the firm but this
+is beyond this phase of this project.    
+
+## DDPG Training
+Once we have LSTM network that can reasonably predict the stock movement we will build the DDPG network and begin 
+training the reinforcement learning model on data from 2008 through 2017.
+
+## Results
+Once the model is trained we will evaluate its performance in 2018 and 2019.  Note that the 2018 and 2019 data was never 
+used in the training process.  Nor will we modify the hyperparameters to increase the performance in 2018 and 2019.  If
+this occurred, the 2018 and 2019 data would effectively become part of the training data.  
+
 ## License
 This code is copyright under the [MIT License](LICENSE).
 
-## Contributions
+##Contributions
 Please feel free to raise issues against this repo if you have any questions or suggestions for improvement.
