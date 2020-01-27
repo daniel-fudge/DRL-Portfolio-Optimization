@@ -3,3 +3,6 @@
 # Please see the Wiki for formatting details as setting descriptions.
 #          https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki
 # ***************************************************************************************
+tickers: [BCE, RCI, SJR]
+data_start:  2007-12-31
+data_end:    2019-12-31
