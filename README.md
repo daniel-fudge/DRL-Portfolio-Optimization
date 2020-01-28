@@ -86,7 +86,8 @@ Although it is not recommended to train on a local PC, you may want to run local
 instructions on the associated [Wiki page](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Local-Execution).
  
 ## Data Preparation
-The first and one of the most important stage of this project is data preparation.
+The first and one of the most important stage of this project is data preparation.  Please see the [Wiki](https://github.com/daniel-fudge/DRL-Portfolio-Optimization/wiki/Data-Preparation) 
+and [data_preparation](data_preparation.ipynb) notebook for the cleaning process.
 
 ## LSTM Development
 Figure 8 on page 18 of [report 2](docs/report2.pdf) copied below illustrates how the 1st layer of both the actor and 
