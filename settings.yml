@@ -8,5 +8,5 @@ tickers: [BCE.TO, RCI-B.TO, SJR-B.TO, T.TO, CJR-B.TO, MG.TO, TOY.TO, QSR.TO, GC.
 data_start:    2007-12-31
 data_end:      2019-12-31
 training_end:  2017-12-31
-embedding_days:  90
-prediction_days: [1, 5, 20]
+embedding_days:  63
+prediction_days: [1, 5, 21]
