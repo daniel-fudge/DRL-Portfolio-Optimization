@@ -9,4 +9,4 @@ data_start:    2007-12-31
 data_end:      2019-12-31
 training_end:  2017-12-31
 embedding_days:  90
-prediction_days: [1, 7, 31]
+prediction_days: [1, 5, 20]
