@@ -1,23 +1,16 @@
 Symbol,Name,Sector
-MMM,3M Company,Industrials
-AOS,A.O. Smith Corp,Industrials
-ABT,Abbott Laboratories,Health Care
-ABBV,AbbVie Inc.,Health Care
+AAP,Advance Auto Parts,Consumer Discretionary
 ACN,Accenture plc,Information Technology
+ADBE,Adobe Systems Inc,Information Technology
+AFL,AFLAC Inc,Financials
+ALB,Albemarle Corp,Materials
+ALK,Alaska Air Group Inc,Industrials
+AOS,A.O. Smith Corp,Industrials
 ATVI,Activision Blizzard,Information Technology
 AYI,Acuity Brands Inc,Industrials
-ADBE,Adobe Systems Inc,Information Technology
-AAP,Advance Auto Parts,Consumer Discretionary
-AMD,Advanced Micro Devices Inc,Information Technology
-AES,AES Corp,Utilities
-AET,Aetna Inc,Health Care
-AMG,Affiliated Managers Group Inc,Financials
-AFL,AFLAC Inc,Financials
-A,Agilent Technologies Inc,Health Care
-APD,Air Products & Chemicals Inc,Materials
+MMM,3M Company,Industrials
 AKAM,Akamai Technologies Inc,Information Technology
-ALK,Alaska Air Group Inc,Industrials
-ALB,Albemarle Corp,Materials
+AMG,Affiliated Managers Group Inc,Financials
 ARE,Alexandria Real Estate Equities Inc,Real Estate
 ALXN,Alexion Pharmaceuticals,Health Care
 ALGN,Align Technology,Health Care
@@ -504,3 +497,10 @@ YUM,Yum! Brands Inc,Consumer Discretionary
 ZBH,Zimmer Biomet Holdings,Health Care
 ZION,Zions Bancorp,Financials
 ZTS,Zoetis,Health Care
+A,Agilent Technologies Inc,Health Care
+ABBV,AbbVie Inc.,Health Care
+AMD,Advanced Micro Devices Inc,Information Technology
+AES,AES Corp,Utilities
+AET,Aetna Inc,Health Care
+ABT,Abbott Laboratories,Health Care
+APD,Air Products & Chemicals Inc,Materials

@@ -109,3 +109,4 @@ venv.bak/
 
 # Saved models
 *.pth
+/ref_data/backup/

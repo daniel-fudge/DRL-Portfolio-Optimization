@@ -6,7 +6,7 @@
 
 # Stock settings
 sp500:    SPY
-tickers:  [SPY, MMM, AOS]
+tickers:  [SPY, AAP, ACN, ADBE, AFL, ALB, ALK, AOS, ATVI, AYI, MMM]
 data_start:    2007-12-31
 data_end:      2019-12-31
 training_end:  2017-12-31
