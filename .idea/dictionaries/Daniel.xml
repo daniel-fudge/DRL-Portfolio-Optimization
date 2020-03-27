@@ -1,13 +1,22 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Daniel">
     <words>
+      <w>amazonaws</w>
+      <w>argparser</w>
+      <w>clippedppo</w>
       <w>ddpg</w>
+      <w>heatup</w>
+      <w>hyperparameter</w>
       <w>hyperparameters</w>
       <w>larkin</w>
       <w>lstm</w>
       <w>nanodegree</w>
       <w>reacher</w>
+      <w>rlcoach</w>
+      <w>robomaker</w>
+      <w>sagemaker</w>
       <w>schulich</w>
+      <w>tensorflow</w>
       <w>udacity</w>
     </words>
   </dictionary>

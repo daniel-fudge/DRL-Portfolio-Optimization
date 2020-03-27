@@ -25,5 +25,6 @@ class MyLauncher(SageMakerCoachPresetLauncher):
         else:
             super().map_hyperparameter(name, value)
 
+
 if __name__ == '__main__':
     MyLauncher.train_main()

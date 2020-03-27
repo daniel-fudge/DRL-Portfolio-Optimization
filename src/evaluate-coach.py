@@ -18,7 +18,7 @@ class MyLauncher(SageMakerCoachPresetLauncher):
 
     def default_preset_name(self):
         """This points to a .py file that configures everything about the RL job.
-        It can be overridden at runtime by specifying the RLCOACH_PRESET hyperparameter.
+        It can be overridden at runtime by specifying the RLCOACH_PRESET hyper parameter.
         """
         return 'preset-portfolio-management-clippedppo'
 
@@ -35,14 +35,14 @@ class MyLauncher(SageMakerCoachPresetLauncher):
         Sets the configuration parameters for what a SageMaker run should do.
         Note, this does not support the "play" mode.
         """
-        ### Parse Arguments
+        # Parse Arguments
         # first, convert the parser to a Namespace object with all default values.
         empty_arg_list = []
         args, _ = parser.parse_known_args(args=empty_arg_list)
         parser = self.sagemaker_argparser()
         sage_args, unknown = parser.parse_known_args()
 
-        ### Set Arguments
+        # Set Arguments
         args.preset = sage_args.RLCOACH_PRESET
         backend = os.getenv('COACH_BACKEND', 'tensorflow')
         args.framework = args.framework = Frameworks[backend]
@@ -54,7 +54,7 @@ class MyLauncher(SageMakerCoachPresetLauncher):
             inplace_replace_in_file(checkpoint_filepath, "/opt/ml/output/data/checkpoint", ".")
             # Override experiment_path used for outputs (note CSV not stored, see `start_single_threaded`).
         args.experiment_path = '/opt/ml/output/intermediate'
-        rl_coach.logger.experiment_path = '/opt/ml/output/intermediate'  # for gifs
+        rl_coach.logger.experiment_path = '/opt/ml/output/intermediate'
         args.evaluate = True  # not actually used, but must be set (see `evaluate_steps`)
         args.evaluate_steps = sage_args.evaluate_steps
         args.no_summary = True  # so process doesn't hang at end
@@ -73,14 +73,14 @@ class MyLauncher(SageMakerCoachPresetLauncher):
                             default=self.default_preset_name(),
                             type=str)
         parser.add_argument('--evaluate_steps',
-                            help="(int) Number of evaluation steps to takr",
+                            help="(int) Number of evaluation steps to take",
                             default=1000,
                             type=int)
         return parser
 
     @classmethod
     def evaluate_main(cls):
-        """Entrypoint for training.
+        """Entry point for training.
         Parses command-line arguments and starts training.
         """
         evaluator = cls()
