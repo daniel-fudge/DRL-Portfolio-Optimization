@@ -25,9 +25,17 @@ schedule_params.heatup_steps = EnvironmentSteps(0)
 
 agent_params = ClippedPPOAgentParameters()
 
-agent_params.network_wrappers['main'].learning_rate = 0.0001
-agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Conv2d(32, [1, 3], 1)]
+# Input Embedder with no CNN
+#agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Dense(71)]
+#agent_params.network_wrappers['main'].input_embedders_parameters['observation'].activation_function = 'tanh'
+#agent_params.network_wrappers['main'].middleware_parameters.scheme = [Dense(128)]
+#agent_params.network_wrappers['main'].middleware_parameters.activation_function = 'tanh'
+
+# Input Embedder used in sample notebook
+agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Conv2d(32, [3, 1], 1)]
 agent_params.network_wrappers['main'].middleware_parameters.scheme = MiddlewareScheme.Empty
+
+agent_params.network_wrappers['main'].learning_rate = 0.0001
 agent_params.network_wrappers['main'].batch_size = 64
 agent_params.algorithm.clipping_decay_schedule = LinearSchedule(1.0, 0, 150000)
 agent_params.algorithm.discount = 0.99

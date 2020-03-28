@@ -2,6 +2,7 @@
 
 import gym
 import gym.spaces
+import os
 import numpy as np
 import pandas as pd
 
@@ -33,16 +34,13 @@ class PortfolioEnv(gym.Env):
         observation_space (gym.spaces.Box)  [self.n_signals, window_length]  The signals with a window_length history.
         portfolio_value (float):  The portfolio value, starting with $1 in cash.
         gain (np.array):  [n_days, n_tickers, gain] The relative price vector; today's / yesterday's price.
-        signals (np.array):  [n_days, n_signals]  Signals that define the observable environment.
+        signals (np.array):  [n_signals, n_days, 1]  Signals that define the observable environment.
         start_date_index (int):  The date index in the signals and price arrays.
         step_number (int):  The step number of the episode.
         steps (int):  Steps or days in an episode.
         tickers (list of str):  The stock tickers.
         trading_cost (float):  Cost of trade as a fraction.
         window_length (int):  How many past observations to return.
-
-
-        sim = PortfolioSim(tickers=self.tickers, trading_cost=trading_cost, time_cost=time_cost, max_steps=steps)
     """
 
     def __init__(self, steps=506, trading_cost=0.0025, window_length=5, start_date_index=4):
@@ -62,10 +60,9 @@ class PortfolioEnv(gym.Env):
 
         # Read the stock data and convert to the relative price vector (gain)
         #   Note the raw prices have an extra day vs the signals to calculate gain
-        root = os.path.split(os.path.dirname(__file__))[0]
-        raw_prices = pd.read_pickle(os.path.join(root, 'stock-data-clean.pkl'))
+        raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'stock-data-clean.csv'),index_col=0, parse_dates=True)
         self.tickers = raw_prices.columns.tolist()
-        self.gain = raw_prices.values[1:] / raw_prices.values[:-1]
+        self.gain = np.hstack((np.ones((raw_prices.shape[0]-1, 1)), raw_prices.values[1:] / raw_prices.values[:-1]))
         self.dates = raw_prices.index.values[1:]
         self.n_dates = self.dates.shape[0]
         self.n_tickers = len(self.tickers)
@@ -78,15 +75,15 @@ class PortfolioEnv(gym.Env):
         self.start_date_index = min(self.start_date_index, self.n_dates - self.steps)
 
         # Read the signals
-        self.signals = pd.read_pickle(os.path.join(root, 'signals.pkl')).values
-        self.n_signals = self.signals.shape[1]
+        self.signals = pd.read_csv(os.path.join(os.path.dirname(__file__), 'signals.csv'),
+                                   index_col=0, parse_dates=True).T.values[:, :, np.newaxis]
+        self.n_signals = self.signals.shape[0]
 
         # Define the action space as the portfolio weights where wn are [0, 1] for each asset not including cash
         self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.n_tickers,), dtype=np.float32)
 
         # Define the observation space, which are the signals
-        self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.n_signals, self.window_length),
-                                                dtype=np.float32)
+        self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.n_signals, self.window_length, 1), dtype=np.float32)
 
     # -----------------------------------------------------------------------------------
     def step(self, action):
@@ -98,7 +95,7 @@ class PortfolioEnv(gym.Env):
             action (np.array):  The desired portfolio weights [w0...].
 
         Returns:
-            np.array:  The observation of the environment (state)
+            np.array:  [n_signals, window_length, 1] The observation of the environment (state)
             float:  The reward received from the previous action.
             bool:  Indicates if the simulation is complete.
             dict:  Debugging information.
@@ -114,6 +111,7 @@ class PortfolioEnv(gym.Env):
         # Calculate the reward; Numbered equations are from https://arxiv.org/abs/1706.10059
         y1 = self.gain[self.step_number]
         w0 = self.weights
+        p0 = self.portfolio_value
         dw1 = (y1 * w0) / (np.dot(y1, w0) + EPS)            # (eq7) weights evolve into
         mu1 = self.trading_cost * (np.abs(dw1 - w1)).sum()  # (eq16) cost to change portfolio
         p1 = p0 * (1 - mu1) * np.dot(y1, w1)                # (eq11) final portfolio value
@@ -129,13 +127,17 @@ class PortfolioEnv(gym.Env):
         # Observe the new environment (state)
         t = self.start_date_index + self.step_number
         t0 = t - self.window_length + 1
-        observation = self.signals[t0:t+1, :]
+        observation = self.signals[:, t0:t+1, :]
 
         # Save some information for debugging and plotting at the end
         r = y1.mean()
-        info = {"reward": reward, "log_return": r1, "portfolio_value": p1, "return": r, "rate_of_return": rho1,
+        if self.step_number == 1:
+            market_value = r
+        else:
+            market_value = self.info_list[-1]["market_value"] * r 
+        info = {"reward": reward/1000, "log_return": r1, "portfolio_value": p1, "return": r, "rate_of_return": rho1,
                 "weights_mean": w1.mean(), "weights_std": w1.std(), "cost": mu1, 'date': self.dates[self.step_number],
-                'steps': self.step_number, "market_value": self.info_list[-1]["market_value"] * r}
+                'steps': self.step_number, "market_value": market_value}
         self.info_list.append(info)
 
         # Check if finished and write to file
@@ -162,6 +164,6 @@ class PortfolioEnv(gym.Env):
 
         t = self.start_date_index + self.step_number
         t0 = t - self.window_length + 1
-        observation = self.signals[t0:t+1, :]
+        observation = self.signals[:, t0:t+1, :]
 
         return observation
