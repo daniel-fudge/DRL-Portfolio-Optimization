@@ -45,7 +45,7 @@ class PortfolioEnv(gym.Env):
         window_length (int):  How many past observations to return.
     """
 
-    def __init__(self, steps=506, trading_cost=0.0025, window_length=5, start_date_index=None):
+    def __init__(self, steps=20, trading_cost=0.0025, window_length=5, start_date_index=None):
         """An environment for financial portfolio management."""
 
         # Initialize some local parameters
@@ -53,11 +53,10 @@ class PortfolioEnv(gym.Env):
         self.info_list = list()
         self.portfolio_value = 1.0
         self.step_number = 0
-        self.steps = steps
-        self.test_length = 506
-        self.trading_cost = trading_cost
+        self.test_length = 20
 
         # Save some arguments as attributes
+        self.trading_cost = trading_cost
         self.window_length = window_length
 
         # Determine if this is a test or training session and limit the start_date_index accordingly
@@ -70,7 +69,7 @@ class PortfolioEnv(gym.Env):
                 self.test = False
             else:
                 raise ValueError('Session type not defined!!!')
-        
+
         # Read the stock data and convert to the relative price vector (gain)
         #   Note the raw prices have an extra day vs the signals to calculate gain
         raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'prices.csv'),index_col=0, parse_dates=True)
@@ -80,18 +79,6 @@ class PortfolioEnv(gym.Env):
         self.n_dates = self.dates.shape[0]
         self.n_tickers = len(self.tickers)
         self.weights = np.insert(np.zeros(self.n_tickers), 0, 1.0)
-
-        if self.test:
-            self.start_date_index = self.n_dates - self.test_length
-        elif start_date_index is none:
-            self.start_date_index = np.random.random_integers(self.window_length - 1, 
-                                                              self.n_dates - self.test_length - self.steps)
-        else:     
-            # The start index must >= the window length to avoid a negative index or data leakage
-            self.start_date_index = max(start_date_index, self.window_length - 1)
-
-            # The start index <= n_dates - test length - the steps in the episode to avoid reading test data
-            self.start_date_index = min(start_date_index, self.n_dates - self.test_length - self.steps)
 
         # Read the signals
         self.signals = pd.read_csv(os.path.join(os.path.dirname(__file__), 'signals.csv'),
@@ -103,6 +90,12 @@ class PortfolioEnv(gym.Env):
 
         # Define the observation space, which are the signals
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.n_signals, self.window_length, 1), dtype=np.float32)
+
+        # Rest the environment
+        self.start_date_index = start_date_index
+        self.steps = steps
+        self.reset()
+        
 
     # -----------------------------------------------------------------------------------
     def step(self, action):
@@ -177,8 +170,24 @@ class PortfolioEnv(gym.Env):
         self.portfolio_value = 1.0
         self.step_number = 0
 
-        self.start_date_index = max(self.start_date_index, self.window_length - 1)
-        self.start_date_index = min(self.start_date_index, self.n_dates - self.steps)
+        # Limit the number of steps
+        if self.test:
+            self.steps = self.test_length - 1
+        else:
+            self.steps = min(self.steps, self.n_dates - self.test_length - self.test_length)
+
+        # Control the start date
+        if self.test:
+            self.start_date_index = self.n_dates - self.test_length
+        elif self.start_date_index is None:
+            self.start_date_index = np.random.random_integers(self.window_length - 1, 
+                                                              self.n_dates - self.test_length - self.steps)
+        else:     
+            # The start index must >= the window length to avoid a negative index or data leakage
+            self.start_date_index = max(self.start_date_index, self.window_length - 1)
+
+            # The start index <= n_dates - test length - the steps in the episode to avoid reading test data
+            self.start_date_index = min(self.start_date_index, self.n_dates - self.test_length - self.steps)
 
         t = self.start_date_index + self.step_number
         t0 = t - self.window_length + 1

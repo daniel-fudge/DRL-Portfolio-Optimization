@@ -33,7 +33,9 @@ agent_params = ClippedPPOAgentParameters()
 
 # Input Embedder used in sample notebook
 agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Conv2d(32, [3, 1], 1)]
-agent_params.network_wrappers['main'].middleware_parameters.scheme = MiddlewareScheme.Empty
+#agent_params.network_wrappers['main'].middleware_parameters.scheme = MiddlewareScheme.Empty
+agent_params.network_wrappers['main'].middleware_parameters.scheme = [Dense(128)]
+agent_params.network_wrappers['main'].middleware_parameters.activation_function = 'tanh'
 
 agent_params.network_wrappers['main'].learning_rate = 0.0001
 agent_params.network_wrappers['main'].batch_size = 64
