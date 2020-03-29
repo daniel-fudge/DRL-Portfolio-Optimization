@@ -1,5 +1,6 @@
+import os
 from sagemaker_rl.coach_launcher import SageMakerCoachPresetLauncher
-
+import shutil
 
 class MyLauncher(SageMakerCoachPresetLauncher):
 
@@ -17,9 +18,9 @@ class MyLauncher(SageMakerCoachPresetLauncher):
         # maps from alias (key) to fully qualified coach parameter (value)
         mapping = {
             "discount": "rl.agent_params.algorithm.discount",
-            "evaluation_episodes": "rl.evaluation_steps:EnvironmentEpisodes",
-            "improve_steps": "rl.improve_steps:TrainingSteps"
-        }
+            "improve_steps": "rl.improve_steps:TrainingSteps",
+            "training_epochs": "rl.agent_params.algorithm.optimization_epochs",
+            "evaluation_episodes": "rl.evaluation_steps:EnvironmentEpisodes"}
         if name in mapping:
             self.apply_hyperparameter(mapping[name], value)
         else:
@@ -27,4 +28,9 @@ class MyLauncher(SageMakerCoachPresetLauncher):
 
 
 if __name__ == '__main__':
+    # Signal the environment that this is a training session and hide the test data
+    with open(os.path.join(os.path.dirname(__file__), 'session-type.txt'), 'w') as f:
+        f.write('train')
+    
+    # Launch training.
     MyLauncher.train_main()

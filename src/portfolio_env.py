@@ -23,7 +23,7 @@ class PortfolioEnv(gym.Env):
         steps (int):  Steps or days in an episode.
         trading_cost (float):  Cost of trade as a fraction.
         window_length (int):  How many past observations to return.
-        start_date_index (int):  The date index in the signals and price arrays.
+        start_date_index (int | None):  The date index in the signals and price arrays.
 
     Attributes:
         action_space (gym.spaces.Box):  [n_tickers]  The portfolio weighting not including cash.
@@ -38,12 +38,14 @@ class PortfolioEnv(gym.Env):
         start_date_index (int):  The date index in the signals and price arrays.
         step_number (int):  The step number of the episode.
         steps (int):  Steps or days in an episode.
+        test (bool):  Indicates if this is a test or training session.
+        test_length (int):  Trading days reserved for testing.
         tickers (list of str):  The stock tickers.
         trading_cost (float):  Cost of trade as a fraction.
         window_length (int):  How many past observations to return.
     """
 
-    def __init__(self, steps=506, trading_cost=0.0025, window_length=5, start_date_index=4):
+    def __init__(self, steps=506, trading_cost=0.0025, window_length=5, start_date_index=None):
         """An environment for financial portfolio management."""
 
         # Initialize some local parameters
@@ -52,15 +54,26 @@ class PortfolioEnv(gym.Env):
         self.portfolio_value = 1.0
         self.step_number = 0
         self.steps = steps
+        self.test_length = 506
         self.trading_cost = trading_cost
 
         # Save some arguments as attributes
         self.window_length = window_length
-        self.start_date_index = start_date_index
 
+        # Determine if this is a test or training session and limit the start_date_index accordingly
+        self.test = False
+        with open(os.path.join(os.path.dirname(__file__), 'session-type.txt')) as f:
+            tmp = f.read().lower()
+            if tmp.startswith('test'):
+                self.test = True
+            elif tmp.startswith('train'):
+                self.test = False
+            else:
+                raise ValueError('Session type not defined!!!')
+        
         # Read the stock data and convert to the relative price vector (gain)
         #   Note the raw prices have an extra day vs the signals to calculate gain
-        raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'stock-data-clean.csv'),index_col=0, parse_dates=True)
+        raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'prices.csv'),index_col=0, parse_dates=True)
         self.tickers = raw_prices.columns.tolist()
         self.gain = np.hstack((np.ones((raw_prices.shape[0]-1, 1)), raw_prices.values[1:] / raw_prices.values[:-1]))
         self.dates = raw_prices.index.values[1:]
@@ -68,11 +81,17 @@ class PortfolioEnv(gym.Env):
         self.n_tickers = len(self.tickers)
         self.weights = np.insert(np.zeros(self.n_tickers), 0, 1.0)
 
-        # The start index must >= the window length to avoid a negative index
-        self.start_date_index = max(self.start_date_index, self.window_length - 1)
+        if self.test:
+            self.start_date_index = self.n_dates - self.test_length
+        elif start_date_index is none:
+            self.start_date_index = np.random.random_integers(self.window_length - 1, 
+                                                              self.n_dates - self.test_length - self.steps)
+        else:     
+            # The start index must >= the window length to avoid a negative index or data leakage
+            self.start_date_index = max(start_date_index, self.window_length - 1)
 
-        # The start index <= n_date - the steps in the episode to avoid over running the price history
-        self.start_date_index = min(self.start_date_index, self.n_dates - self.steps)
+            # The start index <= n_dates - test length - the steps in the episode to avoid reading test data
+            self.start_date_index = min(start_date_index, self.n_dates - self.test_length - self.steps)
 
         # Read the signals
         self.signals = pd.read_csv(os.path.join(os.path.dirname(__file__), 'signals.csv'),
@@ -109,7 +128,8 @@ class PortfolioEnv(gym.Env):
         w1 = w1 / w1.sum()
 
         # Calculate the reward; Numbered equations are from https://arxiv.org/abs/1706.10059
-        y1 = self.gain[self.step_number]
+        t = self.start_date_index + self.step_number
+        y1 = self.gain[t]
         w0 = self.weights
         p0 = self.portfolio_value
         dw1 = (y1 * w0) / (np.dot(y1, w0) + EPS)            # (eq7) weights evolve into
@@ -117,15 +137,13 @@ class PortfolioEnv(gym.Env):
         p1 = p0 * (1 - mu1) * np.dot(y1, w1)                # (eq11) final portfolio value
         p1 = np.clip(p1, 0, np.inf)                         # Limit portfolio to zero (busted)
         rho1 = p1 / p0 - 1                                  # rate of returns
-        r1 = np.log((p1 + EPS) / (p0 + EPS))                # log rate of return
-        reward = 1000 * r1                                  # (eq22) normalized logarithmic accumulated return
+        reward = np.log((p1 + EPS) / (p0 + EPS))            # log rate of return
 
         # Save weights and portfolio value for next iteration
         self.weights = w1
         self.portfolio_value = p1
 
         # Observe the new environment (state)
-        t = self.start_date_index + self.step_number
         t0 = t - self.window_length + 1
         observation = self.signals[:, t0:t+1, :]
 
@@ -135,8 +153,8 @@ class PortfolioEnv(gym.Env):
             market_value = r
         else:
             market_value = self.info_list[-1]["market_value"] * r 
-        info = {"reward": reward/1000, "log_return": r1, "portfolio_value": p1, "return": r, "rate_of_return": rho1,
-                "weights_mean": w1.mean(), "weights_std": w1.std(), "cost": mu1, 'date': self.dates[self.step_number],
+        info = {"reward": reward, "log_return": reward, "portfolio_value": p1, "return": r, "rate_of_return": rho1,
+                "weights_mean": w1.mean(), "weights_std": w1.std(), "cost": mu1, 'date': self.dates[t],
                 'steps': self.step_number, "market_value": market_value}
         self.info_list.append(info)
 

@@ -4,7 +4,7 @@ import os
 import rl_coach
 from rl_coach.base_parameters import Frameworks, TaskParameters
 from rl_coach.core_types import EnvironmentSteps
-
+import shutil
 
 def inplace_replace_in_file(filepath, old, new):
     with open(filepath, 'r') as f:
@@ -88,4 +88,10 @@ class MyLauncher(SageMakerCoachPresetLauncher):
 
 
 if __name__ == '__main__':
+    
+    # Signal the environment that this is a test session and only use the test data
+    with open(os.path.join(os.path.dirname(__file__), 'session-type.txt'), 'w') as f:
+        f.write('test')
+
+    # Start the evaluation
     MyLauncher.evaluate_main()
