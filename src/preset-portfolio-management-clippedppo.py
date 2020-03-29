@@ -26,14 +26,14 @@ schedule_params.heatup_steps = EnvironmentSteps(0)
 agent_params = ClippedPPOAgentParameters()
 
 # Input Embedder with no CNN
-#agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Dense(71)]
-#agent_params.network_wrappers['main'].input_embedders_parameters['observation'].activation_function = 'tanh'
-#agent_params.network_wrappers['main'].middleware_parameters.scheme = [Dense(128)]
-#agent_params.network_wrappers['main'].middleware_parameters.activation_function = 'tanh'
+# agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Dense(71)]
+# agent_params.network_wrappers['main'].input_embedders_parameters['observation'].activation_function = 'tanh'
+# agent_params.network_wrappers['main'].middleware_parameters.scheme = [Dense(128)]
+# agent_params.network_wrappers['main'].middleware_parameters.activation_function = 'tanh'
 
 # Input Embedder used in sample notebook
 agent_params.network_wrappers['main'].input_embedders_parameters['observation'].scheme = [Conv2d(32, [3, 1], 1)]
-#agent_params.network_wrappers['main'].middleware_parameters.scheme = MiddlewareScheme.Empty
+# agent_params.network_wrappers['main'].middleware_parameters.scheme = MiddlewareScheme.Empty
 agent_params.network_wrappers['main'].middleware_parameters.scheme = [Dense(128)]
 agent_params.network_wrappers['main'].middleware_parameters.activation_function = 'tanh'
 

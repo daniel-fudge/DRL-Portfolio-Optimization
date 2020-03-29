@@ -58,7 +58,7 @@ class PortfolioEnv(gym.Env):
 
         # Read the stock data and convert to the relative price vector (gain)
         #   Note the raw prices have an extra day vs the signals to calculate gain
-        raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'prices.csv'),index_col=0, parse_dates=True)
+        raw_prices = pd.read_csv(os.path.join(os.path.dirname(__file__), 'prices.csv'), index_col=0, parse_dates=True)
         self.tickers = raw_prices.columns.tolist()
         self.gain = np.hstack((np.ones((raw_prices.shape[0]-1, 1)), raw_prices.values[1:] / raw_prices.values[:-1]))
         self.dates = raw_prices.index.values[1:]
@@ -75,14 +75,14 @@ class PortfolioEnv(gym.Env):
         self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.n_tickers,), dtype=np.float32)
 
         # Define the observation space, which are the signals
-        self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.n_signals, self.window_length, 1), dtype=np.float32)
+        self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.n_signals, self.window_length, 1),
+                                                dtype=np.float32)
 
         # Rest the environment
         self.start_date_index = start_date_index
         self.steps = steps
         self.reset()
         
-
     # -----------------------------------------------------------------------------------
     def step(self, action):
         """Step the environment.
@@ -164,8 +164,9 @@ class PortfolioEnv(gym.Env):
             self.start_date_index = np.random.random_integers(self.window_length - 1, 
                                                               self.n_dates - self.steps - 1)
         else:     
-            self.start_date_index = np.clip(self.start_date_index, 
-                                            a_min=self.window_length - 1, 
+            # noinspection PyTypeChecker
+            self.start_date_index = np.clip(self.start_date_index,
+                                            a_min=self.window_length - 1,
                                             a_max=self.n_dates - self.steps - 1)
 
         t = self.start_date_index + self.step_number

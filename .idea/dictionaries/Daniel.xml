@@ -5,6 +5,8 @@
       <w>argparser</w>
       <w>clippedppo</w>
       <w>ddpg</w>
+      <w>embedder</w>
+      <w>embedders</w>
       <w>heatup</w>
       <w>hyperparameter</w>
       <w>hyperparameters</w>

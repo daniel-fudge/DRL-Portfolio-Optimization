@@ -2,9 +2,11 @@ import os
 from sagemaker_rl.coach_launcher import SageMakerCoachPresetLauncher
 import shutil
 
+
 class MyLauncher(SageMakerCoachPresetLauncher):
 
-    def default_preset_name(self):
+    @staticmethod
+    def default_preset_name():
         """This points to a .py file that configures everything about the RL job.
         It can be overridden at runtime by specifying the RLCOACH_PRESET hyperparameter.
         """
