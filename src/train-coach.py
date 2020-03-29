@@ -28,9 +28,4 @@ class MyLauncher(SageMakerCoachPresetLauncher):
 
 
 if __name__ == '__main__':
-    # Signal the environment that this is a training session and hide the test data
-    with open(os.path.join(os.path.dirname(__file__), 'session-type.txt'), 'w') as f:
-        f.write('train')
-    
-    # Launch training.
     MyLauncher.train_main()
