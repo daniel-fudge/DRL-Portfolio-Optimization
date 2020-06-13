@@ -19,6 +19,7 @@ include videos on the following topics.
   - [Term 1 - Initial Investigation (Winter 2019)](#term-1---initial-investigation-winter-2019)
   - [Term 2 - Architectural Design (Fall 2019)](#term-2---architectural-design-fall-2019)
   - [Term 3 - Implementation (Winter 2020)](#term-3---implementation-winter-2020)
+  - [Term 4 - Enhancement (Summer 2020)](#term-4---enhancement-summer-2020)
 - [AWS Execution](#aws-execution)
 - [Local Execution](#local-execution)
 - [Data Preparation](#data-preparation)
@@ -71,6 +72,9 @@ application to portfolio optimization.  Instead it is to generate a functioning 
 From this conventional implementation, we can experiment with more advanced techniques as highlighted in the 2nd term 
 report.  Term 3 summarizes not only the implementation but also the development environment to lower the barrier to 
 entry for researchers new to DRL and the deployment of cloud-based applications.   
+
+#### Term 4 - Enhancement (Summer 2020)
+The training process discussed in the future work below was addressed in a 4th term captured in a new [repo](https://github.com/daniel-fudge/DRL-Portfolio-Optimization-Custom). 
 
 ##### Udacity - Deep Learning Nanodegree
 The term 2 report identified the Udacity "Deep Learning" Nanodegree as a good way to gain a better understand of deep 
@@ -135,7 +139,7 @@ As demonstrated in the training [video](https://youtu.be/4MTBMnpHK00) the DRL al
 (buy and hold), which is a good first step but I believe this can be greatly improved with the research into the 
 following areas.
 1. Deep Learning Architectures
-1. Training Process
+1. Training Process (Continued in [4th term](https://github.com/daniel-fudge/DRL-Portfolio-Optimization-Custom))
 1. Signal Generation
 1. Reward Function
 
