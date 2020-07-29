@@ -8,7 +8,7 @@
 sp500:    SPY
 tickers:  [SPY, AAP, ACN, ADBE, AFL, ALB, ALK, AOS, ATVI, AYI, MMM]
 data_start:    2007-12-31
-data_end:      2019-12-31
+data_end:      2020-07-01
 training_end:  2017-12-31
 prediction_days: [1, 5, 21]
 
